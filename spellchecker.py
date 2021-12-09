@@ -14,7 +14,8 @@ import sys
 import time
 from difflib import SequenceMatcher
 
-FILE_PATH = 'lib/'
+LIB_PATH = 'lib/'
+TEST_PATH = 'test/'
 
 #Damerau-LV Distance outputs minimum cost of converting on string into another utilizing
 #insertions, deletions, substitutions, and transpositions
@@ -70,6 +71,15 @@ def spellcheck(incorrect_words, correct_words):
 
     return spellchecked
 
+def get_wordlists(word_files):
+    """ Function used to extract the list of incorrect words and the list of correct words
+        to be later used for the Damerau-Levenshtein text correction algorithm"""
+
+    incorrect_words = read_file(word_files[0])
+    correct_words = read_file(word_files[1])
+
+    return incorrect_words, correct_words
+
 def read_file(file):
     """ Function used to extract the words from the input file and put them into a list"""
 
@@ -85,29 +95,33 @@ def read_file(file):
 
         return lines
 
-def get_wordlists(word_files):
-    """ Function used to extract the list of incorrect words and the list of correct words
-        to be later used for the Damerau-Levenshtein text correction algorithm"""
+def find_accuracy(file):
+    """ Function to find the accuracy of the spellchecked words returned from the Damerau-Levenshtein
+        algorithm """
 
-    incorrect_words = read_file(word_files[0])
-    correct_words = read_file(word_files[1])
+    lines = []
 
-    return incorrect_words, correct_words
+    try:
+        with open(file, 'r') as f:
+            lines = f.read()
+    except IOError:
+        print("Error: The input file: " + file + ", does not appear to exist! Operation terminated.")
+    else:
+        lines = [line.strip() for line in lines.splitlines() if len(line.strip()) != 0]
+
+        return lines
 
 if __name__ == '__main__':
     start = time.perf_counter()
 
-    # #read input and output files
-    # input_files = sys.argv[1:]
+    word_files = [LIB_PATH + 'incorrect_words.txt', LIB_PATH + 'correct_words.txt']
 
-    word_files = [FILE_PATH + 'incorrect_words.txt', FILE_PATH + 'correct_words.txt']
-
-    # incorrect_words, correct_words = get_wordlists(input_files)
     incorrect_words, correct_words = get_wordlists(word_files)
 
     spellchecked_words = spellcheck(incorrect_words, correct_words)
+    # print(spellchecked_words)
 
-    print(spellchecked_words)
+    accuracy = spellcheck(incorrect_words, correct_words)
 
     finish = time.perf_counter()
     print(f'Finished in {round(finish-start, 3)} second(s)')
