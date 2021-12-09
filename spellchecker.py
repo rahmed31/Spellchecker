@@ -67,7 +67,9 @@ def spellcheck(incorrect_words, correct_words):
         if SequenceMatcher(None, sorted_d[0][0], word).ratio() >= 0.75:
             spellchecked.append(sorted_d[0][0])
         else:
-            dict = {}
+            spellchecked.append("Could not match word")
+
+        dict = {}
 
     return spellchecked
 
