@@ -1,5 +1,5 @@
 # About spellchecker.py
-This file implements a brute-force spellchecker utilizing the dynamically programmed Damerau-Levenshtein algorithm for fuzzy string approximation.
+Implementing a highly-accurate, brute-force, and dynamically programmed spellchecking program that utilizes the Damerau-Levenshtein string metric for measuring edit distance between two sequences of characters. 
 
 # How to Write Your Own Test Cases
 In the `lib` folder, you will see two different text files called 'candidate_words.txt' and 'incorrect_words.txt':
