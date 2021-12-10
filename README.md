@@ -24,7 +24,7 @@ Enter the folder's directory using your terminal. Then, simply run `python3 spel
 The results of the program will then be printed to your terminal.
 
 ## Dependencies
-Ensure that you have 'difflib' installed for python3.
+Ensure that you have `difflib` installed for python3.
 
 ## Last Notes
 Feel free to use or modify this program for your intended purposes!
