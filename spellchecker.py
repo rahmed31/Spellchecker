@@ -64,7 +64,8 @@ def spellcheck(incorrect_words, correct_words):
         #Sorting dictionary by value, from smallest to largest distance
         sorted_d = sorted(dict.items(), key=lambda x: x[1])
 
-        if SequenceMatcher(None, sorted_d[0][0], word).ratio() >= 0.75:
+        #Applying threshold of >= 0.70 to find most accuracate word from dictionary
+        if SequenceMatcher(None, sorted_d[0][0], word).ratio() >= 0.70:
             spellchecked.append(sorted_d[0][0])
         else:
             spellchecked.append("Could not match word")
@@ -121,9 +122,9 @@ if __name__ == '__main__':
     incorrect_words, correct_words = get_wordlists(word_files)
 
     spellchecked_words = spellcheck(incorrect_words, correct_words)
-    # print(spellchecked_words)
+    print(spellchecked_words)
 
-    accuracy = spellcheck(incorrect_words, correct_words)
+    # accuracy = spellcheck(incorrect_words, correct_words)
 
     finish = time.perf_counter()
     print(f'Finished in {round(finish-start, 3)} second(s)')
