@@ -1,7 +1,7 @@
-sentences
-magnetohydrodynamics     
-magenta
 magnet
-thorough
-however
+magnetohydrodynamics    
 because
+sentences
+magenta
+however
+thorough
