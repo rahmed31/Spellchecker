@@ -9,7 +9,6 @@
 #Author: Raihan Ahmed, Chicago, IL
 #email: rahmed10@neiu.edu
 #-------------------------------------------------------------------------------------------
-
 import time
 import random as rnd
 from difflib import SequenceMatcher
@@ -18,9 +17,9 @@ LIB_PATH = 'lib/'
 TEST_PATH = 'test/'
 THRESHOLD = 0.70
 
-def spellcheck(incorrect_words, correct_words):
+def spellcheck(incorrect_words, candidate_words):
     """ This function serves as the helper method for the Damerau-Levenshtein algorithm to find
-        the best match from the correct_words list for each word in the incorrect_words list. """
+        the best match from the candidate_words list for each word in the incorrect_words list. """
 
     def damerau_levenshtein(s1, s2):
         """ Damerau-LV Distance outputs minimum cost of converting one string into another utilizing
@@ -58,10 +57,10 @@ def spellcheck(incorrect_words, correct_words):
     spellchecked = []
 
     #shuffle correct words list
-    rnd.shuffle(correct_words)
+    rnd.shuffle(candidate_words)
 
     for word in incorrect_words:
-        for x in correct_words:
+        for x in candidate_words:
             dict.update({x : damerau_levenshtein(x, word)})
 
         #Sorting dictionary by value, from smallest to largest distance
@@ -77,14 +76,14 @@ def spellcheck(incorrect_words, correct_words):
 
     return spellchecked
 
-def calculate_accuracy(test_words, spellchecked_words):
+def calculate_accuracy(target_words, spellchecked_words):
     """ Function to find the accuracy of the spellchecked words returned from the Damerau-Levenshtein
         algorithm by comparing each spellchecked word to its intended word"""
 
     num_correct = 0
     total = 0
 
-    for test_word, spellchecked_word in zip(test_words, spellchecked_words):
+    for test_word, spellchecked_word in zip(target_words, spellchecked_words):
         if test_word == spellchecked_word:
             num_correct += 1
 
@@ -115,17 +114,23 @@ if __name__ == '__main__':
 
     files = [LIB_PATH + 'incorrect_words.txt', LIB_PATH + 'correct_words.txt', TEST_PATH + 'test_words.txt']
 
-    spellchecked_words = spellcheck(read_file(files[0]), read_file(files[1]))
-    accuracy = calculate_accuracy(read_file(files[2]), spellchecked_words)
+    incorrect_words, candidate_words, target_words = read_file(files[0]), read_file(files[1]), read_file(files[2])
 
+    spellchecked_words = spellcheck(incorrect_words, candidate_words)
+    accuracy = calculate_accuracy(target_words, spellchecked_words)
+
+    print()
     print("================================================")
+    print("NUMBER OF WORDS TO BE CORRECTED: " + str(len(incorrect_words)))
     print("LIST OF INCORRECT WORDS:")
-    print(read_file(files[0]))
-    print("LIST OF SPELLCHECKED WORDS:")
+    print(incorrect_words)
+    print("LIST OF TARGET WORDS:")
+    print(target_words)
+    print("LIST OF WORDS RETURNED BY SPELL CHECKER:")
     print(spellchecked_words)
-    print("SPELL CHECKER ACCURACY:")
-    print(str(accuracy) + "%")
+    print("SPELL CHECKER ACCURACY: " + str(accuracy) + "%")
     print("================================================")
-
+    print()
     finish = time.perf_counter()
     print(f'Finished in {round(finish-start, 3)} second(s)')
+    print()
