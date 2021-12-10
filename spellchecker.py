@@ -10,7 +10,6 @@
 #email: rahmed10@neiu.edu
 #-------------------------------------------------------------------------------------------
 
-import sys
 import time
 import random as rnd
 from difflib import SequenceMatcher
@@ -77,17 +76,9 @@ def spellcheck(incorrect_words, correct_words):
 
     return spellchecked
 
-def get_wordlists(word_files):
-    """ Function used to extract the list of incorrect words and the list of correct words
-        to be later used for the Damerau-Levenshtein text correction algorithm"""
-
-    incorrect_words = read_file(word_files[0])
-    correct_words = read_file(word_files[1])
-
-    return incorrect_words, correct_words
-
 def read_file(file):
-    """ Function used to extract the words from the input file and put them into a list"""
+    """ Function used to extract the words from the input file and put them into a list to
+        be later used by the Damerau-Levenshtein text correction algorithm"""
 
     lines = []
 
@@ -101,33 +92,59 @@ def read_file(file):
 
         return lines
 
-def find_accuracy(file):
+def calculate_accuracy(test_tags, model_tags):
+    """ Function to calculate the accuracy of the Viterbi algorithm by comparing the output of the POS tagger to the actual tags
+        provided in the test set. """
+
+    num_correct = 0
+    total = 0
+
+    for test_taglist, model_taglist in zip(test_tags, model_tags):
+        for test_pos, model_pos in zip(test_taglist, model_taglist):
+            if test_pos == model_pos:
+                num_correct += 1
+
+            total += 1
+
+    accuracy = round(num_correct/float(total), 3) * 100
+
+    return accuracy
+
+def calculate_accuracy(test_words, spellchecked_words):
     """ Function to find the accuracy of the spellchecked words returned from the Damerau-Levenshtein
-        algorithm """
+        algorithm by comparing each spellchecked word to its intended word"""
 
-    lines = []
+    num_correct = 0
+    total = 0
 
-    try:
-        with open(file, 'r') as f:
-            lines = f.read()
-    except IOError:
-        print("Error: The input file: " + file + ", does not appear to exist! Operation terminated.")
-    else:
-        lines = [line.strip() for line in lines.splitlines() if len(line.strip()) != 0]
+    for test_word, spellchecked_word in zip(test_words, spellchecked_words):
+        if test_word == spellchecked_word:
+            num_correct += 1
 
-        return lines
+        total += 1
+
+    accuracy = round(num_correct/float(total), 4) * 100
+
+    return accuracy
 
 if __name__ == '__main__':
     start = time.perf_counter()
 
     word_files = [LIB_PATH + 'incorrect_words.txt', LIB_PATH + 'correct_words.txt']
 
-    incorrect_words, correct_words = get_wordlists(word_files)
-
+    incorrect_words = read_file(word_files[0])
+    correct_words = read_file(word_files[1])
     spellchecked_words = spellcheck(incorrect_words, correct_words)
-    print(spellchecked_words)
+    accuracy = calculate_accuracy(read_file(TEST_PATH + 'test_words.txt'), spellchecked_words)
 
-    # accuracy = spellcheck(incorrect_words, correct_words)
+    print("================================================")
+    print("LIST OF INCORRECT WORDS:")
+    print(incorrect_words)
+    print("LIST OF SPELLCHECKED WORDS:")
+    print(spellchecked_words)
+    print("SPELL CHECKER ACCURACY:")
+    print(str(accuracy) + "%")
+    print("================================================")
 
     finish = time.perf_counter()
     print(f'Finished in {round(finish-start, 3)} second(s)')
