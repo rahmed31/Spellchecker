@@ -12,50 +12,53 @@
 
 import sys
 import time
+import random as rnd
 from difflib import SequenceMatcher
 
 LIB_PATH = 'lib/'
 TEST_PATH = 'test/'
 
-#Damerau-LV Distance outputs minimum cost of converting on string into another utilizing
-#insertions, deletions, substitutions, and transpositions
-def damerau_levenshtein(s1, s2):
-    """ This function provides an implementation of the Damerau-Levenshtein aglorithm """
-
-    d = {}
-    lenstr1 = len(s1)
-    lenstr2 = len(s2)
-    for i in range(-1,lenstr1+1):
-        d[(i,-1)] = i+1
-    for j in range(-1,lenstr2+1):
-        d[(-1,j)] = j+1
-
-    for i in range(lenstr1):
-        for j in range(lenstr2):
-            #recursively called functions:
-            #indicator function
-            if s1[i] == s2[j]:
-                cost = 0
-            else:
-                cost = 1
-
-            d[(i,j)] = min(d[(i-1,j)] + 1, # deletion
-                           d[(i,j-1)] + 1, # insertion
-                           d[(i-1,j-1)] + cost, # substitution
-                          )
-
-            if i and j and s1[i]==s2[j-1] and s1[i-1] == s2[j]:
-                d[(i,j)] = min (d[(i,j)], d[i-2,j-2] + cost) # transposition
-
-    return d[lenstr1-1,lenstr2-1]
-
 def spellcheck(incorrect_words, correct_words):
     """ This function serves as the helper method for the Damerau-Levenshtein algorithm to find
         the best match from the correct_words list for each word in the incorrect_words list. """
 
+    def damerau_levenshtein(s1, s2):
+        """ Damerau-LV Distance outputs minimum cost of converting one string into another utilizing
+            insertions, deletions, substitutions, and transpositions """
+
+        d = {}
+        lenstr1 = len(s1)
+        lenstr2 = len(s2)
+        for i in range(-1,lenstr1+1):
+            d[(i,-1)] = i+1
+        for j in range(-1,lenstr2+1):
+            d[(-1,j)] = j+1
+
+        for i in range(lenstr1):
+            for j in range(lenstr2):
+                #recursively called functions:
+                #indicator function
+                if s1[i] == s2[j]:
+                    cost = 0
+                else:
+                    cost = 1
+
+                d[(i,j)] = min(d[(i-1,j)] + 1, # deletion
+                               d[(i,j-1)] + 1, # insertion
+                               d[(i-1,j-1)] + cost, # substitution
+                              )
+
+                if i and j and s1[i]==s2[j-1] and s1[i-1] == s2[j]:
+                    d[(i,j)] = min (d[(i,j)], d[i-2,j-2] + cost) # transposition
+
+        return d[lenstr1-1,lenstr2-1]
+
     #Creating a dictionary to store each word from the list and its distance from the input word
     dict = {}
     spellchecked = []
+
+    #shuffle correct words list
+    rnd.shuffle(correct_words)
 
     for word in incorrect_words:
         for x in correct_words:
