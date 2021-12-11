@@ -2,7 +2,7 @@
 Implementing a highly-accurate, brute-force, and dynamically programmed spellchecking program that utilizes the Damerau-Levenshtein string metric for measuring edit distance between two sequences of characters. 
 
 # How to Write Your Own Test Cases
-In the `lib` folder, you will see two different text files called 'candidate_words.txt' and 'incorrect_words.txt':
+In the `test` folder, you will see two different text files called 'candidate_words.txt' and 'incorrect_words.txt':
 
 - The `candidate_words.txt` text file can contain an unlimited amount of CORRECTLY spelled words, with each word written on a new line.
 - The `incorrect_words.txt` text file can contain an unlimited amount of INCORRECTLY spelled words, with each word written on a new line. However, each incorrectly spelled word in this list MUST have its correctly spelled counterpart contained somewhere in the 'candidate_words.txt' text file. It doesn't matter where, since the 'candidate_words.txt' file will be randomly shuffled anyway. 
@@ -15,7 +15,7 @@ To view an example on how to create your own test cases, take a look at the file
 
 # How to Run the Program
 
-Enter the folder's directory using your terminal. Then, simply run `python3 spellchecker.py`
+Clone the repository. Then enter the folder's directory using your terminal. Finally, simply run `python3 spellchecker.py`
 
 - The only thing you will need to modify are the files in the `lib` and `test` folders if you want to try the program with your own test cases. The program does not need to be touched, unless you'd like to modify the global variable 'THRESHOLD', which is used as the threshold to find an incorrectly spelled word's closest approximation.
 - The incorrectly spelled words in 'incorrect_words.txt' will be run through the program to find its closest lexical match from the `candidate_words.txt` text file using the Damerau-Levenshtein algorithm.
