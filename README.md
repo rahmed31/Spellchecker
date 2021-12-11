@@ -9,7 +9,7 @@ In the `test` folder, you will see two different text files called `candidate_wo
 
 In the `test` folder, you will see a text file called `target_words.txt`:
 
-- The 'target_words.txt' file will contain the CORRECT spelling of each word contained in the `incorrect_words.txt` text file, with each being on a new line in the same exact order that you inserted their incorrectly spelled counterparts in the 'incorrect_words.txt' text file. It is important that both the incorrectly and correctly spelled words are in the same order to be able to calculate the accuracy of the spell checker.
+- The `target_words.txt` file will contain the CORRECT spelling of each word contained in the `incorrect_words.txt` text file, with each being on a new line in the same exact order that you inserted their incorrectly spelled counterparts in the `incorrect_words.txt` text file. It is important that both the incorrectly and correctly spelled words are in the same order to be able to calculate the accuracy of the spell checker.
 
 To view an example on how to create your own test cases, take a look at the files provided in either folder.
 
