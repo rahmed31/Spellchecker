@@ -5,7 +5,7 @@ Implementing a highly-accurate, brute-force, and dynamically programmed spellche
 In the `test` folder, you will see two different text files called `candidate_words.txt` and `incorrect_words.txt`:
 
 - The `candidate_words.txt` text file can contain an unlimited amount of CORRECTLY spelled words, with each word written on a new line.
-- The `incorrect_words.txt` text file can contain an unlimited amount of INCORRECTLY spelled words, with each word written on a new line. However, each incorrectly spelled word in this list MUST have its correctly spelled counterpart contained somewhere in the 'candidate_words.txt' text file. It doesn't matter where, since the 'candidate_words.txt' file will be randomly shuffled anyway. 
+- The `incorrect_words.txt` text file can contain an unlimited amount of INCORRECTLY spelled words, with each word written on a new line. However, each incorrectly spelled word in this list MUST have its correctly spelled counterpart contained somewhere in the `candidate_words.txt` text file. It doesn't matter where, since the `candidate_words.txt` file will be randomly shuffled anyway. 
 
 In the `test` folder, you will see a text file called `target_words.txt`:
 
