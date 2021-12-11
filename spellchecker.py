@@ -47,8 +47,8 @@ def spellcheck(incorrect_words, candidate_words):
                                d[(i-1,j-1)] + cost, # substitution
                               )
 
-                if i and j and s1[i]==s2[j-1] and s1[i-1] == s2[j]:
-                    d[(i,j)] = min (d[(i,j)], d[i-2,j-2] + cost) # transposition
+                if i and j and s1[i] == s2[j-1] and s1[i-1] == s2[j]:
+                    d[(i,j)] = min(d[(i,j)], d[i-2,j-2] + cost) # transposition
 
         return d[lenstr1-1,lenstr2-1]
 
@@ -72,7 +72,7 @@ def spellcheck(incorrect_words, candidate_words):
         else:
             spellchecked.append("NO MATCH FOUND")
 
-        dict = {}
+        dict.clear()
 
     return spellchecked
 
@@ -112,7 +112,7 @@ def read_file(file):
 if __name__ == '__main__':
     start = time.perf_counter()
 
-    files = [LIB_PATH + 'incorrect_words.txt', LIB_PATH + 'correct_words.txt', TEST_PATH + 'test_words.txt']
+    files = [LIB_PATH + 'incorrect_words.txt', LIB_PATH + 'candidate_words.txt', TEST_PATH + 'target_words.txt']
 
     incorrect_words, candidate_words, target_words = read_file(files[0]), read_file(files[1]), read_file(files[2])
 
@@ -128,7 +128,7 @@ if __name__ == '__main__':
     print(target_words)
     print("LIST OF WORDS RETURNED BY SPELL CHECKER:")
     print(spellchecked_words)
-    print("SPELL CHECKER ACCURACY: " + str(accuracy) + "%")
+    print("SPELL CHECKER ACCURACY (CURRENT RUN): " + str(accuracy) + "%")
     print("================================================")
     print()
     finish = time.perf_counter()
