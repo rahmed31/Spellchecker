@@ -2,7 +2,7 @@
 Implementing a highly-accurate, brute-force, and dynamically programmed spellchecking program that utilizes the Damerau-Levenshtein string metric for measuring edit distance between two sequences of characters. 
 
 # How to Write Your Own Test Cases
-In the `test` folder, you will see two different text files called 'candidate_words.txt' and 'incorrect_words.txt':
+In the `test` folder, you will see two different text files called `candidate_words.txt` and `incorrect_words.txt`:
 
 - The `candidate_words.txt` text file can contain an unlimited amount of CORRECTLY spelled words, with each word written on a new line.
 - The `incorrect_words.txt` text file can contain an unlimited amount of INCORRECTLY spelled words, with each word written on a new line. However, each incorrectly spelled word in this list MUST have its correctly spelled counterpart contained somewhere in the 'candidate_words.txt' text file. It doesn't matter where, since the 'candidate_words.txt' file will be randomly shuffled anyway. 
