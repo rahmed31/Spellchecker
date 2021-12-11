@@ -1,5 +1,5 @@
 # About spellchecker.py
-Implementing a highly-accurate, brute-force, and dynamically programmed spellchecking program that utilizes the Damerau-Levenshtein string metric for measuring edit distance between two sequences of characters. 
+Implementing an accurate, brute-force, and dynamically programmed spellchecking program that utilizes the Damerau-Levenshtein string metric for measuring edit distance between two sequences of characters. 
 
 # How to Write Your Own Test Cases
 In the `test` folder, you will see two different text files called `candidate_words.txt` and `incorrect_words.txt`:
